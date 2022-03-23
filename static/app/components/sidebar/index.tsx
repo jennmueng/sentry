@@ -7,6 +7,7 @@ import {hideSidebar, showSidebar} from 'sentry/actionCreators/preferences';
 import Feature from 'sentry/components/acl/feature';
 import GuideAnchor from 'sentry/components/assistant/guideAnchor';
 import HookOrDefault from 'sentry/components/hookOrDefault';
+import PerformanceOnboardingSidebar from 'sentry/components/performanceOnboarding/sidebar';
 import {
   IconChevron,
   IconDashboard,
@@ -101,6 +102,8 @@ function Sidebar({location, organization}: Props) {
   useEffect(() => {
     if (location?.hash === '#welcome') {
       togglePanel(SidebarPanelKey.OnboardingWizard);
+    } else if (location?.hash === '#performance-sidequest') {
+      togglePanel(SidebarPanelKey.PerformanceOnboarding);
     }
   }, [location?.hash]);
 
@@ -339,6 +342,12 @@ function Sidebar({location, organization}: Props) {
 
       {hasOrganization && (
         <SidebarSectionGroup>
+          <PerformanceOnboardingSidebar
+            currentPanel={activePanel}
+            onShowPanel={() => togglePanel(SidebarPanelKey.PerformanceOnboarding)}
+            hidePanel={hidePanel}
+            {...sidebarItemProps}
+          />
           <SidebarSection noMargin noPadding>
             <OnboardingStatus
               org={organization}
