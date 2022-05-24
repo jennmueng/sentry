@@ -614,25 +614,6 @@ function WidgetViewerModal(props: Props) {
           }}
           location={location}
         />
-        {(links?.previous?.results || links?.next?.results) && (
-          <Pagination
-            pageLinks={pageLinks}
-            onCursor={newCursor => {
-              router.replace({
-                pathname: location.pathname,
-                query: {
-                  ...location.query,
-                  [WidgetViewerQueryField.CURSOR]: newCursor,
-                },
-              });
-              trackAdvancedAnalyticsEvent('dashboards_views.widget_viewer.paginate', {
-                organization,
-                widget_type: WidgetType.RELEASE,
-                display_type: widget.displayType,
-              });
-            }}
-          />
-        )}
       </Fragment>
     );
   };
